@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="installed" version="1.0">
+    <name>installed</name>
+    <author>weelion</author>
+    <description>installed</description>
+    <keywords>cordova, installed app list</keywords>
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <js-module src="www/installed.js" name="Installed">
+        <clobbers target="installed" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Installed">
+                <param name="android-package" value="so.doo.app.plugins.Installed" />
+            </feature>
+        </config-file>
+        <source-file src="src/android/Installed.java" target-dir="src/so/doo/app/plugins" />
+    </platform>
+</plugin>
