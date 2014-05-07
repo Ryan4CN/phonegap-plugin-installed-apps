@@ -16,7 +16,7 @@
     <platform name="android">
         <config-file target="config.xml" parent="/*">
             <feature name="Apps">
-                <param name="android-package" value="so.doo.app.plugins.apps" />
+                <param name="android-package" value="so.doo.app.plugins.Apps" />
             </feature>
         </config-file>
         <source-file src="src/android/Apps.java" target-dir="src/so/doo/app/plugins" />
