@@ -4,7 +4,7 @@ var Apps = function (func) {
     this.name = "Apps";
 };
 
-Installed.prototype.list = function () {
+Apps.prototype.list = function () {
 	exec(func, null, "Apps", "list", []);
 };
 
