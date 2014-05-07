@@ -14,9 +14,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 
 @SuppressLint("HandlerLeak")
-public class Installed extends CordovaPlugin {
+public class Apps extends CordovaPlugin {
 	
-	private static final String TAG = "Installed";
 	private Context ctx;
 
 	 public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -24,7 +23,23 @@ public class Installed extends CordovaPlugin {
 		ctx = cordova.getActivity().getApplicationContext();
     }
 
-	/**
+	private JSONArray list() {
+		PackageManager packageMgr = ctx.getPackageManager();
+		Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+		mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+		List<ResolveInfo> resovleInfos = packageMgr.queryIntentActivities(mainIntent, 0);
+
+		ArrayList<String> list  = new ArrayList<String>();
+		for (ResolveInfo resolve : resovleInfos) {
+			String packageName = resolve.activityInfo.packageName;
+			list.add(packageName);
+		}
+		List<String> ulist = new ArrayList<String>(new HashSet<String>(list));
+		
+		return new JSONArray(ulist);
+	}
+
+    /**
      * Executes the request and returns PluginResult.
      *
      * @param action            The action to execute.
@@ -44,20 +59,4 @@ public class Installed extends CordovaPlugin {
 
         return false;
     }
-
-	private JSONArray list() {
-		PackageManager packageMgr = ctx.getPackageManager();
-		Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-		mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-		List<ResolveInfo> resovleInfos = packageMgr.queryIntentActivities(mainIntent, 0);
-
-		ArrayList<String> list  = new ArrayList<String>();
-		for (ResolveInfo resolve : resovleInfos) {
-			String packageName = resolve.activityInfo.packageName;
-			list.add(packageName);
-		}
-		List<String> ulist = new ArrayList<String>(new HashSet<String>( list ));
-		
-		return new JSONArray(ulist);
-	}
 }
